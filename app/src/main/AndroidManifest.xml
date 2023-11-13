@@ -6,39 +6,27 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SportApplication"
+        android:theme="@style/Theme.ProjectCitySport"
         tools:targetApi="31">
+
         <activity
-            android:name=".ListProductAdmin"
-            android:exported="false" />
-        <activity
-            android:name=".ProduitAdmin"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ProjectCitySport">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".ProductDetails"
-            android:exported="false" />
-        <activity
-            android:name=".AllCategory"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"></activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SENDTO" />
 </manifest>
