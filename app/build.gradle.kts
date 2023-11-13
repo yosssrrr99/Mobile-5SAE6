@@ -38,6 +38,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("androidx.room:room-runtime:2.2.0")
     annotationProcessor ("androidx.room:room-compiler:2.2.0")
+    implementation("com.google.code.gson:gson:2.8.9")
 
 
 }

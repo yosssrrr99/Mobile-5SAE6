@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/discountedRecycler"
+        android:id="@+id/productRecycle"
         android:layout_width="392dp"
         android:layout_height="156dp"
         android:layout_marginTop="16dp"
@@ -97,7 +97,7 @@
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/discountedRecycler" />
+        app:layout_constraintTop_toBottomOf="@+id/productRecycle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRecycler"

@@ -1,7 +1,11 @@
 package com.example.sportapplication.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.List;
 
 @Entity
 public class Produit {
@@ -10,9 +14,51 @@ public class Produit {
     private String name;
     private String price;
     private String des;
+
+    public List<Size> getSizes() {
+        return sizes;
+    }
+
+    public Produit(String name, String price, String type, byte[] imageData) {
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        this.imageData = imageData;
+    }
+
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
+    }
+
+    @TypeConverters(SizeListConverter.class)
+    private List<Size> sizes;
+
     String type;
+
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
     String rating;
-    int imageUrl;
+
+    public Produit() {
+    }
+
+    public Produit(int id, String name, String price, String des, String type) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.des = des;
+        this.type = type;
+    }
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] imageData;
 
     public int getId() {
         return id;
@@ -62,11 +108,5 @@ public class Produit {
         this.rating = rating;
     }
 
-    public int getImageUrl() {
-        return imageUrl;
-    }
 
-    public void setImageUrl(int imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.sportapplication.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,6 +10,8 @@ public class Categorie {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] imageData;
 
     public int getId() {
         return id;
@@ -20,6 +23,14 @@ public class Categorie {
 
     public String getName() {
         return name;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public void setName(String name) {

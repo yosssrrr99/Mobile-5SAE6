@@ -7,6 +7,8 @@ import androidx.room.Update;
 
 import com.example.sportapplication.entity.Categorie;
 
+import java.util.List;
+
 @Dao
 public interface CategorieDAO {
 
@@ -20,6 +22,6 @@ public interface CategorieDAO {
     void delete(int id);
 
     @Query("Select * from categorie")
-    void getAllCategori();
+    List<Categorie> getAllCategorie();
 
 }

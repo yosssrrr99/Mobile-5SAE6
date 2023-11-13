@@ -7,16 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.sportapplication.adapter.CategoryAdapter;
 import com.example.sportapplication.adapter.DiscountedProductAdapter;
 import com.example.sportapplication.adapter.RecentlyViewedAdapter;
+import com.example.sportapplication.dao.ProduitDAO;
+import com.example.sportapplication.database.SportDataBase;
 import com.example.sportapplication.model.BestSeller;
 import com.example.sportapplication.model.Category;
-import com.example.sportapplication.model.DiscountedProducts;
 import com.example.sportapplication.model.RecentlyViewed;
 
 import java.util.ArrayList;
@@ -34,13 +34,23 @@ public class MainActivity extends AppCompatActivity {
     ImageView allCategory;
 
 
+
+
+    private SportDataBase sportDataBase;
+    private ProduitDAO produitDAO;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        discountRecyclerView = findViewById(R.id.discountedRecycler);
+        sportDataBase = SportDataBase.getDatabase(this);
+        produitDAO=sportDataBase.produitDAO();
+
+      //  discountRecyclerView = findViewById(R.id.productRecycler);
         categoryRecyclerView=findViewById(R.id.categoryRecycler);
         allCategory=findViewById(R.id.AllCategoryImage);
         recentlyViewedRecycler = findViewById(R.id.recently_item);
