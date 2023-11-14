@@ -41,7 +41,7 @@ public class ProductDetails extends AppCompatActivity {
             TextView nameTextView = findViewById(R.id.textView);
             TextView priceTextView = findViewById(R.id.price_detail);
             TextView descTextView = findViewById(R.id.detailText);
-           
+
 
             if (name != null && price != null && desc != null ) {
 

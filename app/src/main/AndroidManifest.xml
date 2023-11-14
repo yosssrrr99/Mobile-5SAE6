@@ -15,6 +15,15 @@
         android:theme="@style/Theme.SportApplication"
         tools:targetApi="31">
         <activity
+            android:name=".SecondFragment"
+            android:exported="false" />
+        <activity
+            android:name=".FirstFragement"
+            android:exported="false" />
+        <activity
+            android:name=".fragmentFirst"
+            android:exported="false" />
+        <activity
             android:name=".UpdateProductAdmin"
             android:exported="false" />
         <activity
@@ -22,9 +31,7 @@
             android:exported="false" />
         <activity
             android:name=".ProduitAdmin"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ProductDetails"
             android:exported="false" />
@@ -33,7 +40,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
