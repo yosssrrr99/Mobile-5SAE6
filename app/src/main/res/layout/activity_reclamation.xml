@@ -1,0 +1,53 @@
+<!-- res/layout/cute_reclamation_layout.xml -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFE0B2">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sujet De Reclamation:"
+        android:textSize="16sp"
+        android:textColor="#673AB7"
+        android:paddingTop="8dp"/>
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Description"
+        android:background="#FFF"
+        android:padding="8dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Purchase Date"
+        android:textSize="16sp"
+        android:textColor="#673AB7"
+        android:paddingTop="8dp"/>
+
+    <DatePicker
+        android:id="@+id/dateReclamationDatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:padding="8dp"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:background="#673AB7"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
