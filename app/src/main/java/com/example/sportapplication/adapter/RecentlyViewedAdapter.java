@@ -16,18 +16,36 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sportapplication.entity.Produit;
 import com.example.sportapplication.model.RecentlyViewed;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAdapter.RecentlyViewedViewHolder> {
-    Context context;
-    List<RecentlyViewed> recentlyViewedList;
+    private Context context;
+    private List<Produit> produitList;
 
-    public RecentlyViewedAdapter(Context context, List<RecentlyViewed> recentlyViewedList) {
+    private ApdateListener apdateListener;
+    public RecentlyViewedAdapter(Context context,ApdateListener listener ) {
         this.context = context;
-        this.recentlyViewedList = recentlyViewedList;
+        produitList = new ArrayList<>();
+        this.apdateListener=listener;
     }
+    public void aadProduit(Produit produit){
+        produitList.add(produit);
+        notifyDataSetChanged();
+    }
+
+    public void removeProduit(int position){
+        produitList.remove(position);
+        notifyDataSetChanged();
+    }
+    public void clearData(){
+        produitList.clear();
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -39,26 +57,29 @@ public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAd
     @Override
     public void onBindViewHolder(@NonNull RecentlyViewedAdapter.RecentlyViewedViewHolder holder, int position) {
 
-         holder.categoryImage.setImageResource(recentlyViewedList.get(position).getImageUrl());
-         holder.price.setText(recentlyViewedList.get(position).getPrice());
-         holder.chaussname.setText(recentlyViewedList.get(position).getName());
+        Produit p = produitList.get(position);
+        holder.chaussname.setText(p.getName());
+        holder.price.setText(p.getPrice());
         holder.itemView.setOnClickListener((view)-> {
 
             Intent i = new Intent(context, ProductDetails.class);
-            i.putExtra("name",recentlyViewedList.get(position).getName());
-            i.putExtra("price",recentlyViewedList.get(position).getPrice());
+            i.putExtra("name",produitList.get(position).getName());
+            i.putExtra("price",produitList.get(position).getPrice());
+            i.putExtra("desc",produitList.get(position).getDes());
+            i.putExtra("sizes",produitList.get(position).getSizes().toString());
             context.startActivity(i);
 
 
         });
 
-         Log.d("RecyclerView", "Item count: " + recentlyViewedList.size());
+
+
 
     }
 
     @Override
     public int getItemCount() {
-        return recentlyViewedList.size();
+        return produitList.size();
     }
 
     public static class RecentlyViewedViewHolder extends RecyclerView.ViewHolder {

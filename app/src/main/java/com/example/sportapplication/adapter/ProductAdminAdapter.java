@@ -40,7 +40,10 @@ public class ProductAdminAdapter extends RecyclerView.Adapter<ProductAdminAdapte
         produitList.remove(position);
         notifyDataSetChanged();
     }
-
+    public void clearData(){
+        produitList.clear();
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -59,7 +62,7 @@ public class ProductAdminAdapter extends RecyclerView.Adapter<ProductAdminAdapte
         holder.update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                apdateListener.OnUpdate(p.getId(),position);
+                apdateListener.OnUpdate(p);
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {

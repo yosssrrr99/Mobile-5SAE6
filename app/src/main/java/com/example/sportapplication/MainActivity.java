@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.sportapplication.adapter.ApdateListener;
 import com.example.sportapplication.adapter.CategoryAdapter;
 import com.example.sportapplication.adapter.DiscountedProductAdapter;
+import com.example.sportapplication.adapter.ProductAdminAdapter;
 import com.example.sportapplication.adapter.RecentlyViewedAdapter;
 import com.example.sportapplication.dao.ProduitDAO;
 import com.example.sportapplication.database.SportDataBase;
+import com.example.sportapplication.entity.Produit;
 import com.example.sportapplication.model.BestSeller;
 import com.example.sportapplication.model.Category;
 import com.example.sportapplication.model.RecentlyViewed;
@@ -22,7 +25,7 @@ import com.example.sportapplication.model.RecentlyViewed;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ApdateListener {
 
     RecyclerView discountRecyclerView,categoryRecyclerView,recentlyViewedRecycler;
     DiscountedProductAdapter discountedProductAdapter;
@@ -31,13 +34,14 @@ public class MainActivity extends AppCompatActivity {
     List<Category> categoryList;
     RecentlyViewedAdapter recentlyViewedAdapter;
     List<RecentlyViewed> recentlyViewedList;
-    ImageView allCategory;
+    ImageView allCategory,imageView;
 
 
 
 
     private SportDataBase sportDataBase;
     private ProduitDAO produitDAO;
+
 
 
 
@@ -50,10 +54,18 @@ public class MainActivity extends AppCompatActivity {
         sportDataBase = SportDataBase.getDatabase(this);
         produitDAO=sportDataBase.produitDAO();
 
-      //  discountRecyclerView = findViewById(R.id.productRecycler);
+      // discountRecyclerView = findViewById(R.id.productRecycler);
         categoryRecyclerView=findViewById(R.id.categoryRecycler);
         allCategory=findViewById(R.id.AllCategoryImage);
+
+
+        recentlyViewedAdapter = new RecentlyViewedAdapter(this,this);
         recentlyViewedRecycler = findViewById(R.id.recently_item);
+        recentlyViewedRecycler.setAdapter(recentlyViewedAdapter);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, LinearLayoutManager.HORIZONTAL, false);
+        recentlyViewedRecycler.setLayoutManager(layoutManager);
+
+
 
 
         allCategory.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         // adding data to model
-        discountedProductsList = new ArrayList<>();
+       /* discountedProductsList = new ArrayList<>();
         discountedProductsList.add(new BestSeller("AirForce 1","Sneakers","250 DT","2.4",R.drawable.shoes1));
-        discountedProductsList.add(new BestSeller("AirForce 2","Sneakers","250 DT","5.4",R.drawable.shoes3));
+        discountedProductsList.add(new BestSeller("AirForce 2","Sneakers","250 DT","5.4",R.drawable.shoes3));*/
 
 
 
@@ -80,35 +92,58 @@ public class MainActivity extends AppCompatActivity {
 
 
         // adding data to model
-        recentlyViewedList = new ArrayList<>();
+       /* recentlyViewedList = new ArrayList<>();
         recentlyViewedList.add(new RecentlyViewed("AirForce 1","180 DT",R.drawable.shoes1,"4.5"));
         recentlyViewedList.add(new RecentlyViewed("AirForce 2","180 DT", R.drawable.shoes1,"4.3"));
-        recentlyViewedList.add(new RecentlyViewed("AirForce 2","250 DT", R.drawable.sho2,"4.3"));
+        recentlyViewedList.add(new RecentlyViewed("AirForce 2","250 DT", R.drawable.sho2,"4.3"));*/
 
 
-        setDiscountedRecycler(discountedProductsList);
+       // setDiscountedRecycler(discountedProductsList);
         setCategoryRecycler(categoryList);
-        setRecentlyViewedRecycler(recentlyViewedList);
+       // setRecentlyViewedRecycler(recentlyViewedList);
 
     }
 
-    private  void setDiscountedRecycler(List<BestSeller> dataList) {
+   /* private  void setDiscountedRecycler(List<BestSeller> dataList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         discountRecyclerView.setLayoutManager(layoutManager);
         discountedProductAdapter = new DiscountedProductAdapter(this,dataList);
         discountRecyclerView.setAdapter(discountedProductAdapter);
-    }
+    }*/
     private void setCategoryRecycler(List<Category> categoryDataList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         categoryRecyclerView.setLayoutManager(layoutManager);
         categoryAdapter = new CategoryAdapter(this,  categoryDataList);
         categoryRecyclerView.setAdapter(categoryAdapter);
      }
-    private void setRecentlyViewedRecycler(List<RecentlyViewed> recentlyViewedDataList) {
+   /* private void setRecentlyViewedRecycler(List<RecentlyViewed> recentlyViewedDataList) {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, LinearLayoutManager.HORIZONTAL, false);
         recentlyViewedRecycler.setLayoutManager(layoutManager);
         recentlyViewedAdapter = new RecentlyViewedAdapter(this, recentlyViewedDataList);
         recentlyViewedRecycler.setAdapter(recentlyViewedAdapter);
+    }*/
+
+    private void fetchData() {
+        recentlyViewedAdapter.clearData();
+        List<Produit> produitList = produitDAO.getAllProduit();
+        for (int i = 0; i < produitList.size(); i++) {
+            Produit produit = produitList.get(i);
+            recentlyViewedAdapter.aadProduit(produit);
+        }
     }
 
+    @Override
+    public void OnUpdate(Produit produit) {
+
+    }
+
+    @Override
+    public void OnDelete(int id, int pos) {
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchData();
+    }
 }

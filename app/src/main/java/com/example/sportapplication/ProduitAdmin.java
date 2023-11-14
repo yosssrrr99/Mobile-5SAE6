@@ -70,16 +70,13 @@ public class ProduitAdmin extends AppCompatActivity implements ApdateListener {
         allProduct=findViewById(R.id.imageView7);
 
 
-       /* selectImageButton = findViewById(R.id.select_image_button);
-        selectedImageView = findViewById(R.id.selected_image_view);*/
-
+     
         productAdminAdapter = new ProductAdminAdapter(this,this);
 
         discountRecyclerView = findViewById(R.id.allprodRecycle);
         discountRecyclerView.setAdapter(productAdminAdapter);
         discountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        fetchData();
 
 
         allProduct.setOnClickListener(new View.OnClickListener() {
@@ -91,23 +88,12 @@ public class ProduitAdmin extends AppCompatActivity implements ApdateListener {
         });
 
 
-
-
-
         MultiAutoCompleteTextView sizeMultiSpinner = findViewById(R.id.size_multi_spinner);
 
         ArrayAdapter<Size> sizeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Size.values());
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sizeMultiSpinner.setAdapter(sizeAdapter);
         sizeMultiSpinner.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
-
-       /* selectImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openImagePicker();
-            }
-        });*/
 
 
         insertbtn.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +137,7 @@ public class ProduitAdmin extends AppCompatActivity implements ApdateListener {
     }
 
     private void fetchData() {
+        productAdminAdapter.clearData();
         List<Produit> produitList = produitDAO.getAllProduit();
         for (int i = 0; i < produitList.size(); i++) {
             Produit produit = produitList.get(i);
@@ -159,8 +146,11 @@ public class ProduitAdmin extends AppCompatActivity implements ApdateListener {
     }
 
     @Override
-    public void OnUpdate(int id, int pos) {
-    
+    public void OnUpdate(Produit produit) {
+        Intent intent = new Intent(ProduitAdmin.this, UpdateProductAdmin.class);
+        intent.putExtra("model",produit);
+        startActivity(intent);
+
     }
 
     @Override
@@ -169,33 +159,11 @@ public class ProduitAdmin extends AppCompatActivity implements ApdateListener {
          productAdminAdapter.removeProduit(pos);
     }
 
-   /* private void openImagePicker() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }*/
-
-
-  /*  private byte[] getBytesFromUri(Uri uri) throws IOException {
-        InputStream iStream = getContentResolver().openInputStream(uri);
-        assert iStream != null;
-        byte[] inputData = getBytes(iStream);
-        iStream.close();
-        return inputData;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchData();
     }
 
-    // Helper method to convert InputStream to byte array
-    private byte[] getBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
 
-        int len;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-
-        return byteBuffer.toByteArray();
-    }*/
 }

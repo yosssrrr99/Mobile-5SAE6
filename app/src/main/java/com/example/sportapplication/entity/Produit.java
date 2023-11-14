@@ -5,10 +5,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Produit {
+public class Produit implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
@@ -19,12 +20,7 @@ public class Produit {
         return sizes;
     }
 
-    public Produit(String name, String price, String type, byte[] imageData) {
-        this.name = name;
-        this.price = price;
-        this.type = type;
-        this.imageData = imageData;
-    }
+
 
     public void setSizes(List<Size> sizes) {
         this.sizes = sizes;
@@ -49,13 +45,16 @@ public class Produit {
     public Produit() {
     }
 
-    public Produit(int id, String name, String price, String des, String type) {
+    public Produit(int id, String name, String price, String des, String type, List<Size> sizes) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.des = des;
         this.type = type;
+        this.sizes = sizes;
     }
+
+
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] imageData;
